@@ -1,0 +1,22 @@
+package maxresolutiontest;
+
+import types.uRGB;
+
+import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
+import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
+
+class MaxResolutionTestKernel extends Kernel {
+
+	protected MaxResolutionTestKernel(KernelParameters parameters) {
+		super(parameters);
+
+		flush.disabled();
+
+		io.input("x", dfeUInt(16));
+		io.input("y", dfeUInt(16));
+
+		uRGB output = new uRGB(255, 127, 0, this);
+		io.output("rgb", uRGB.getDFEStructType()).connect(output.getDFEStruct());
+	}
+
+}

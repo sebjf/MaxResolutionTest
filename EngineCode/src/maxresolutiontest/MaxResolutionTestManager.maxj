@@ -1,0 +1,53 @@
+package maxresolutiontest;
+
+import maxvideo.MaxVideoCounterKernel;
+import maxvideo.MaxVideoSignalKernel;
+
+import com.maxeler.maxcompiler.v2.managers.BuildConfig;
+import com.maxeler.maxcompiler.v2.managers.custom.CustomManager;
+import com.maxeler.maxcompiler.v2.managers.custom.ManagerClock;
+import com.maxeler.maxcompiler.v2.managers.custom.blocks.KernelBlock;
+
+import displaystandards.DisplayStandard;
+
+public class MaxResolutionTestManager extends CustomManager {
+
+	public MaxResolutionTestManager(MaxResolutionTestEngineParameters engineParameters) {
+		super(engineParameters);
+
+		DisplayStandard displayStandard = DisplayStandard.make_1280x1024x60();
+
+		config.setDefaultStreamClockFrequency(displayStandard.getDisplayClock());
+
+		KernelBlock videoCounterKernel = addKernel(new MaxVideoCounterKernel(makeKernelParameters("MaxVideoCounterKernel"), displayStandard));
+		KernelBlock videoDataKernel = addKernel(new MaxResolutionTestKernel(makeKernelParameters("MaxResolutionTestKernel")));
+		KernelBlock videoSignalKernel = addKernel(new MaxVideoSignalKernel(makeKernelParameters("MaxVideoSignalKernel"), displayStandard));
+
+		videoDataKernel.getInput("x").connect(videoCounterKernel.getOutput("x"));
+		videoDataKernel.getInput("y").connect(videoCounterKernel.getOutput("y"));
+
+		videoSignalKernel.getInput("x").connect(videoCounterKernel.getOutput("signalKernel_x"));
+		videoSignalKernel.getInput("y").connect(videoCounterKernel.getOutput("signalKernel_y"));
+
+		videoSignalKernel.getInput("rgb").connect(videoDataKernel.getOutput("rgb"));
+
+		ManagerClock displayClock = generateStreamClock("displayDataClock", displayStandard.getDisplayClock());
+		videoSignalKernel.setClock(displayClock);
+
+		getVideoStream("videoData", displayClock).connect(videoSignalKernel.getOutput("displayDataOut"));
+
+		configBuild(engineParameters);
+	}
+
+	private void configBuild(MaxResolutionTestEngineParameters params) {
+		BuildConfig buildConfig = getBuildConfig();
+		buildConfig.setMPPRCostTableSearchRange(params.getMPPRStartCT(), params.getMPPREndCT());
+		buildConfig.setMPPRParallelism(params.getMPPRThreads());
+		buildConfig.setMPPRRetryNearMissesThreshold(params.getMPPRRetryThreshold());
+	}
+
+	public static void main(String[] args) {
+		MaxResolutionTestManager manager = new MaxResolutionTestManager(new MaxResolutionTestEngineParameters(args));
+		manager.build();
+	}
+}

@@ -15,7 +15,7 @@ public class MaxResolutionTestManager extends CustomManager {
 	public MaxResolutionTestManager(MaxResolutionTestEngineParameters engineParameters) {
 		super(engineParameters);
 
-		DisplayStandard displayStandard = DisplayStandard.make_RiftDK2_Half();
+		DisplayStandard displayStandard = DisplayStandard.make_RiftDK2();
 
 		config.setDefaultStreamClockFrequency(displayStandard.getDisplayClock());
 

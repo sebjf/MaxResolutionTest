@@ -16,6 +16,8 @@ int main(void)
 
 	max_set_uint64t(act,"MaxVideoSignalKernel","HSyncPolarity",1);
 	max_set_uint64t(act,"MaxVideoSignalKernel","VSyncPolarity",1);
+	max_set_uint64t(act,"MaxResolutionTestKernel","pattern",0);
+
 
 	max_run(engine, act);
 

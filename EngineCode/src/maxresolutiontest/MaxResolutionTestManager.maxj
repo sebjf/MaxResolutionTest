@@ -19,17 +19,24 @@ public class MaxResolutionTestManager extends CustomManager {
 
 		config.setDefaultStreamClockFrequency(displayStandard.getDisplayClock());
 
-		KernelBlock videoCounterKernel = addKernel(new MaxVideoCounterKernel(makeKernelParameters("MaxVideoCounterKernel"), displayStandard));
+		displayStandard.enableHalfPatternInput = true;
+
+		KernelBlock videoCounterKernel = addKernel(new MaxVideoCounterKernel(
+				makeKernelParameters("MaxVideoCounterKernel"), displayStandard,
+				new MaxVideoCounterKernel.CounterOutput("0", true),
+				new MaxVideoCounterKernel.CounterOutput("_signal", false)));
+
 		KernelBlock videoDataKernel = addKernel(new MaxResolutionTestKernel(makeKernelParameters("MaxResolutionTestKernel")));
 		KernelBlock videoSignalKernel = addKernel(new MaxVideoSignalKernel(makeKernelParameters("MaxVideoSignalKernel"), displayStandard));
 
-		videoDataKernel.getInput("x").connect(videoCounterKernel.getOutput("x"));
-		videoDataKernel.getInput("y").connect(videoCounterKernel.getOutput("y"));
+		videoDataKernel.getInput("x").connect(videoCounterKernel.getOutput("x0"));
+		videoDataKernel.getInput("y").connect(videoCounterKernel.getOutput("y0"));
 
-		videoSignalKernel.getInput("x").connect(videoCounterKernel.getOutput("signalKernel_x"));
-		videoSignalKernel.getInput("y").connect(videoCounterKernel.getOutput("signalKernel_y"));
+		videoSignalKernel.getInput("x").connect(videoCounterKernel.getOutput("x_signal"));
+		videoSignalKernel.getInput("y").connect(videoCounterKernel.getOutput("y_signal"));
 
 		videoSignalKernel.getInput("rgb").connect(videoDataKernel.getOutput("rgb"));
+		videoSignalKernel.getInput("HalfClockEnable").connect(videoDataKernel.getOutput("HalfClockEnable"));
 
 		ManagerClock displayClock = generateStreamClock("displayDataClock", displayStandard.getDisplayClock());
 		videoSignalKernel.setClock(displayClock);

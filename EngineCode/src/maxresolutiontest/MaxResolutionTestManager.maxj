@@ -15,7 +15,7 @@ public class MaxResolutionTestManager extends CustomManager {
 	public MaxResolutionTestManager(MaxResolutionTestEngineParameters engineParameters) {
 		super(engineParameters);
 
-		DisplayStandard displayStandard = DisplayStandard.make_1280x1024x60();
+		DisplayStandard displayStandard = DisplayStandard.make_1280x1024m();
 
 		config.setDefaultStreamClockFrequency(displayStandard.getDisplayClock());
 

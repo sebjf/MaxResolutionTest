@@ -20,10 +20,13 @@ class MaxResolutionTestKernel extends Kernel {
 
 		DFEVar pattern = io.scalarInput("pattern", dfeUInt(8));
 
+		DFEVar r = io.scalarInput("r", dfeUInt(8));
+		DFEVar g = io.scalarInput("g", dfeUInt(8));
+		DFEVar b = io.scalarInput("b", dfeUInt(8));
 
 		/* Pattern x writes a constant colour to the screen  */
 
-		uRGB defaultpattern = new uRGB(255, 127, 0, this);
+		uRGB defaultpattern = new uRGB(r,g,b);
 		DFEStruct rgb = defaultpattern.getDFEStruct();
 
 		/* Pattern 1 writes a random value for each pixel (timing signals are vesa compliant) */

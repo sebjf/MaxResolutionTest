@@ -55,7 +55,6 @@ hs_err_pid*
 
 RunRules/Simulation/binaries/
 RunRules/Simulation/objects/
-RunRules/DFE/binaries/
 RunRules/DFE/objects/
 RunRules/DFE/maxfiles/MaxResolutionTest-BUILD
 RunRules/Simulation/maxfiles/MaxResolutionTest-BUILD

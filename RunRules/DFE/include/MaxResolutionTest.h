@@ -18,12 +18,18 @@ extern "C" {
 /**
  * \brief Basic static function for the interface 'default'.
  * 
+ * \param [in] inscalar_MaxResolutionTestKernel_b Input scalar parameter "MaxResolutionTestKernel.b".
+ * \param [in] inscalar_MaxResolutionTestKernel_g Input scalar parameter "MaxResolutionTestKernel.g".
  * \param [in] inscalar_MaxResolutionTestKernel_pattern Input scalar parameter "MaxResolutionTestKernel.pattern".
+ * \param [in] inscalar_MaxResolutionTestKernel_r Input scalar parameter "MaxResolutionTestKernel.r".
  * \param [in] inscalar_MaxVideoSignalKernel_HSyncPolarity Input scalar parameter "MaxVideoSignalKernel.HSyncPolarity".
  * \param [in] inscalar_MaxVideoSignalKernel_VSyncPolarity Input scalar parameter "MaxVideoSignalKernel.VSyncPolarity".
  */
 void MaxResolutionTest(
+	uint64_t inscalar_MaxResolutionTestKernel_b,
+	uint64_t inscalar_MaxResolutionTestKernel_g,
 	uint64_t inscalar_MaxResolutionTestKernel_pattern,
+	uint64_t inscalar_MaxResolutionTestKernel_r,
 	uint64_t inscalar_MaxVideoSignalKernel_HSyncPolarity,
 	uint64_t inscalar_MaxVideoSignalKernel_VSyncPolarity);
 
@@ -35,13 +41,19 @@ void MaxResolutionTest(
  * note that one of these *must* be called, so that associated memory can be released.
  * 
  * 
+ * \param [in] inscalar_MaxResolutionTestKernel_b Input scalar parameter "MaxResolutionTestKernel.b".
+ * \param [in] inscalar_MaxResolutionTestKernel_g Input scalar parameter "MaxResolutionTestKernel.g".
  * \param [in] inscalar_MaxResolutionTestKernel_pattern Input scalar parameter "MaxResolutionTestKernel.pattern".
+ * \param [in] inscalar_MaxResolutionTestKernel_r Input scalar parameter "MaxResolutionTestKernel.r".
  * \param [in] inscalar_MaxVideoSignalKernel_HSyncPolarity Input scalar parameter "MaxVideoSignalKernel.HSyncPolarity".
  * \param [in] inscalar_MaxVideoSignalKernel_VSyncPolarity Input scalar parameter "MaxVideoSignalKernel.VSyncPolarity".
  * \return A handle on the execution status, or NULL in case of error.
  */
 max_run_t *MaxResolutionTest_nonblock(
+	uint64_t inscalar_MaxResolutionTestKernel_b,
+	uint64_t inscalar_MaxResolutionTestKernel_g,
 	uint64_t inscalar_MaxResolutionTestKernel_pattern,
+	uint64_t inscalar_MaxResolutionTestKernel_r,
 	uint64_t inscalar_MaxVideoSignalKernel_HSyncPolarity,
 	uint64_t inscalar_MaxVideoSignalKernel_VSyncPolarity);
 
@@ -50,7 +62,10 @@ max_run_t *MaxResolutionTest_nonblock(
  * 
  */
 typedef struct { 
+	uint64_t inscalar_MaxResolutionTestKernel_b; /**<  [in] Input scalar parameter "MaxResolutionTestKernel.b". */
+	uint64_t inscalar_MaxResolutionTestKernel_g; /**<  [in] Input scalar parameter "MaxResolutionTestKernel.g". */
 	uint64_t inscalar_MaxResolutionTestKernel_pattern; /**<  [in] Input scalar parameter "MaxResolutionTestKernel.pattern". */
+	uint64_t inscalar_MaxResolutionTestKernel_r; /**<  [in] Input scalar parameter "MaxResolutionTestKernel.r". */
 	uint64_t inscalar_MaxVideoSignalKernel_HSyncPolarity; /**<  [in] Input scalar parameter "MaxVideoSignalKernel.HSyncPolarity". */
 	uint64_t inscalar_MaxVideoSignalKernel_VSyncPolarity; /**<  [in] Input scalar parameter "MaxVideoSignalKernel.VSyncPolarity". */
 } MaxResolutionTest_actions_t;

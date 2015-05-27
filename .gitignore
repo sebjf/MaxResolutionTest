@@ -57,6 +57,7 @@ RunRules/Simulation/binaries/
 RunRules/Simulation/objects/
 RunRules/DFE/objects/
 RunRules/DFE/maxfiles/MaxResolutionTest-BUILD
+RunRules/DFE/maxfiles/.nfs*
 RunRules/Simulation/maxfiles/MaxResolutionTest-BUILD
 RunRules/Simulation/debug*
 *.png

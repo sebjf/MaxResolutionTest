@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <buildProfile>
 <common>
-<<<<<<< HEAD
 <boardModel type="MAIA"/>
-=======
-<boardModel type="CORIA"/>
->>>>>>> a7e6903a0735a3db599daa484c12cd2dcb91d3d2
 <simulation enabled="false"/>
 <enableMPCX enabled="false"/>
 </common>

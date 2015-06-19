@@ -1,10 +1,11 @@
 package maxresolutiontest;
 
+import maxvideo.VideoCounter;
+import maxvideo.VideoCounter.Scope;
 import types.uRGB;
 
 import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
 import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
-import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.KernelMath;
 import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
 import com.maxeler.maxcompiler.v2.kernelcompiler.types.composite.DFEStruct;
 
@@ -15,8 +16,10 @@ class MaxResolutionTestKernel extends Kernel {
 
 		flush.disabled();
 
-		DFEVar x = io.input("x", dfeUInt(16));
-		DFEVar y = io.input("y", dfeUInt(16));
+		VideoCounter counters = new VideoCounter(this, Scope.ActiveOnly);
+
+		DFEVar x = counters.x.cast(dfeUInt(16));
+		DFEVar y = counters.y.cast(dfeUInt(16));
 
 		DFEVar pattern = io.scalarInput("pattern", dfeUInt(8));
 
@@ -40,10 +43,10 @@ class MaxResolutionTestKernel extends Kernel {
 		/* Pattern 3 writes the half clock pattern to the outputs */
 
 		/* When enabled half clock alternates between writing 0x3FF or 0x0 to the data channels */
-		io.output("HalfClockEnable", dfeBool()) <== (pattern === 3);
+/*		io.output("HalfClockEnable", dfeBool()) <== (pattern === 3);
 		rgb = (pattern === 3) ?
 				((KernelMath.modulo(x, 2) > 0) ? uRGB.White(this).getDFEStruct() : uRGB.Black(this).getDFEStruct() )
-				: rgb;
+				: rgb; */
 
 
 		io.output("rgb", uRGB.getDFEStructType()) <== rgb;

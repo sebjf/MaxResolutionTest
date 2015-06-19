@@ -1,12 +1,13 @@
 package maxresolutiontest;
 
-import maxvideo.MaxVideoCounterKernel;
 import maxvideo.MaxVideoSignalKernel;
+import maxvideo.VideoCounter;
 
 import com.maxeler.maxcompiler.v2.managers.BuildConfig;
+import com.maxeler.maxcompiler.v2.managers.BuildConfig.Effort;
+import com.maxeler.maxcompiler.v2.managers.BuildConfig.OptimizationTechnique;
 import com.maxeler.maxcompiler.v2.managers.custom.CustomManager;
 import com.maxeler.maxcompiler.v2.managers.custom.blocks.KernelBlock;
-import com.maxeler.maxeleros.managercompiler.libs.VideoConfiguration;
 
 import displaystandards.DisplayStandard;
 
@@ -15,42 +16,31 @@ public class MaxResolutionTestManager extends CustomManager {
 	public MaxResolutionTestManager(MaxResolutionTestEngineParameters engineParameters) {
 		super(engineParameters);
 
-		DisplayStandard displayStandard = DisplayStandard.make_1920x1080x149();
-		displayStandard.forceClock = true;
-		displayStandard.PixelClock = 310.0f;
+		DisplayStandard displayStandard = DisplayStandard.make_RiftDK2();
+		VideoCounter.displayStandard = displayStandard;
 
-		config.setDefaultStreamClockFrequency(displayStandard.getDisplayClock());
+		config.setDefaultStreamClockFrequency(200.0f);
 
-		displayStandard.enableHalfPatternInput = true;
-
-		KernelBlock videoCounterKernel = addKernel(new MaxVideoCounterKernel(
-				makeKernelParameters("MaxVideoCounterKernel"), displayStandard,
-				new MaxVideoCounterKernel.CounterOutput("0", true),
-				new MaxVideoCounterKernel.CounterOutput("_signal", false)));
+//		displayStandard.enableHalfPatternInput = true;
 
 		KernelBlock videoDataKernel = addKernel(new MaxResolutionTestKernel(makeKernelParameters("MaxResolutionTestKernel")));
 		KernelBlock videoSignalKernel = addKernel(new MaxVideoSignalKernel(makeKernelParameters("MaxVideoSignalKernel"), displayStandard));
 
-		videoDataKernel.getInput("x").connect(videoCounterKernel.getOutput("x0"));
-		videoDataKernel.getInput("y").connect(videoCounterKernel.getOutput("y0"));
-
-		videoSignalKernel.getInput("x").connect(videoCounterKernel.getOutput("x_signal"));
-		videoSignalKernel.getInput("y").connect(videoCounterKernel.getOutput("y_signal"));
-
 		videoSignalKernel.getInput("rgb").connect(videoDataKernel.getOutput("rgb"));
-		videoSignalKernel.getInput("HalfClockEnable").connect(videoDataKernel.getOutput("HalfClockEnable"));
+	//	videoSignalKernel.getInput("HalfClockEnable").connect(videoDataKernel.getOutput("HalfClockEnable"));
 
-		//try adding a giant fifo to meet timing...
-		getVideoStream("videoData", new VideoConfiguration(275.0f)).connect(videoSignalKernel.getOutput("displayDataOut"));
+		getVideoStream("videoData", displayStandard.getDisplayClock()).connect(videoSignalKernel.getOutput("displayDataOut"));
 
 		configBuild(engineParameters);
 	}
 
 	private void configBuild(MaxResolutionTestEngineParameters params) {
 		BuildConfig buildConfig = getBuildConfig();
-		buildConfig.setMPPRCostTableSearchRange(params.getMPPRStartCT(), params.getMPPREndCT());
-		buildConfig.setMPPRParallelism(params.getMPPRThreads());
-		buildConfig.setMPPRRetryNearMissesThreshold(params.getMPPRRetryThreshold());
+		buildConfig.setBuildEffort(Effort.HIGH);
+		buildConfig.setMPPRCostTableSearchRange(1, 4);
+		buildConfig.setMPPRParallelism(4);
+		buildConfig.setMPPRRetryNearMissesThreshold(500);
+		buildConfig.setOptimizationGoal(OptimizationTechnique.AREA);
 	}
 
 	public static void main(String[] args) {

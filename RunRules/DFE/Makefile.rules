@@ -62,7 +62,7 @@ include/MaxResolutionTest.h: maxfiles/MaxResolutionTest.h
 maxfiles/MaxResolutionTest.max maxfiles/MaxResolutionTest.h:
 # Ensure that maxfiles do not get build by this Makefile when running in MaxIDE
 ifndef MAXIDE_RUN
-	test -f $@ || env  MAX_BUILDPARAMS=" DFEModel=CORIA  target=DFE  maxFileName=MaxResolutionTest "  ant -v -f MaxResolutionTest.xml
+	test -f $@ || env  MAX_BUILDPARAMS=" DFEModel=MAIA  target=DFE  maxFileName=MaxResolutionTest "  ant -v -f MaxResolutionTest.xml
 else
 	test -f $@ || ( echo 'Maxfile unavailable: $@' >/dev/stderr ; exit 1 )
 endif

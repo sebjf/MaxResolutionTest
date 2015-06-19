@@ -1,5 +1,12 @@
 .classpath:bd7ade67b146111ed68c989750b20b06
+<<<<<<< HEAD
 RunRules.settings:1e4ce5f7536d345f177ae7727948e11e
 MaxResolutionTestManager.maxj:5baf7a1177159958c713a45a80a1bde2
 MaxResolutionTestEngineParameters.maxj:bbfef0029d50b2045a983631beb6ab13
 MaxResolutionTestKernel.maxj:9ee71ba36cbbb16f69a11ad1ef05a54a
+=======
+RunRules.settings:2e0a6599a06a132d2ec4c5eb9e4f7a54
+MaxResolutionTestManager.maxj:a8875784f6b2ed42fba3f47b7df666b6
+MaxResolutionTestEngineParameters.maxj:bbfef0029d50b2045a983631beb6ab13
+MaxResolutionTestKernel.maxj:feb3f48a64eba6932c5791178e22aa60
+>>>>>>> a7e6903a0735a3db599daa484c12cd2dcb91d3d2

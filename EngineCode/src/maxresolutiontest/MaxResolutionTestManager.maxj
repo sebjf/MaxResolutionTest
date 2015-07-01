@@ -37,7 +37,7 @@ public class MaxResolutionTestManager extends CustomManager {
 	private void configBuild(MaxResolutionTestEngineParameters params) {
 		BuildConfig buildConfig = getBuildConfig();
 		buildConfig.setBuildEffort(Effort.HIGH);
-		buildConfig.setMPPRCostTableSearchRange(2, 5);
+		buildConfig.setMPPRCostTableSearchRange(1, 4);
 		buildConfig.setMPPRParallelism(4);
 		buildConfig.setMPPRRetryNearMissesThreshold(500);
 		buildConfig.setOptimizationGoal(OptimizationTechnique.AREA);

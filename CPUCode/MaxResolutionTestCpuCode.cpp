@@ -8,7 +8,7 @@
 int main(void)
 {
 
-	printf("Running on DFE. v0.2 single link words\n");
+	printf("Running on DFE. v0.4 single link words\n");
 
 	max_file_t *maxfile = MaxResolutionTest_init();
 	max_set_max_runnable_timing_score(maxfile, 16123321);

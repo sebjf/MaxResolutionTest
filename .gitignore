@@ -54,7 +54,7 @@ hs_err_pid*
 *.mxru
 
 RunRules/DFE/objects/
-RunRules/DFE/maxfiles/
+RunRules/DFE/maxfiles/*BUILD
 RunRules/Simulation/
 *.png
 *.dot

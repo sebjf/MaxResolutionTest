@@ -19,7 +19,7 @@ public class MaxResolutionTestManager extends CustomManager {
 		DisplayStandard displayStandard = DisplayStandard.make_RiftDK2();
 		VideoCounter.displayStandard = displayStandard;
 
-		config.setDefaultStreamClockFrequency(200.0f);
+		config.setDefaultStreamClockFrequency(200);
 
 //		displayStandard.enableHalfPatternInput = true;
 
